@@ -13,23 +13,24 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name= Task.TABLE_NAME)
+@Table(name = Task.TABLE_NAME)
 public class Task {
-    public static final String TABLE_NAME="task";
+    public static final String TABLE_NAME = "task";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id", unique = true)
+    @Column(name = "id", unique = true)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name= "user_id", nullable = false, updatable = false) //avisa pro banco de dados como associar as duas tabelas
+    @JoinColumn(name = "user_id", nullable = false, updatable = false) // avisa pro banco de dados como associar as duas
+                                                                       // tabelas
     private User user;
 
-    @Column(name="description", nullable = false, length = 255)
+    @Column(name = "description", nullable = false, length = 255)
     @NotNull
     @NotBlank
-    @Size(min = 1, max=255)
+    @Size(min = 1, max = 255)
     private String description;
 
     public Task() {
@@ -102,5 +103,4 @@ public class Task {
         return true;
     }
 
-    
 }
