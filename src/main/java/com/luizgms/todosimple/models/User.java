@@ -54,16 +54,26 @@ public class User {
                                   // usado userID
     private List<Task> tasks = new ArrayList<Task>();
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
     public User() {
     }
 
     public User(Long id,
             @NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(min = 2, max = 100) String userName,
             @NotNull(groups = { CreateUser.class, UpdateUser.class }) @NotEmpty(groups = { CreateUser.class,
-                    UpdateUser.class }) @Size(min = 8, max = 60) String password) {
+                    UpdateUser.class }) @Size(min = 8, max = 60) String password,
+            List<Task> tasks) {
         this.id = id;
         this.userName = userName;
         this.password = password;
+        this.tasks = tasks;
     }
 
     public Long getId() {
