@@ -1,5 +1,7 @@
 package com.luizgms.todosimple.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,8 @@ public class TaskService {
         return this.taskRepository.save(nTask);
     }
 
-    public void deleteTask(Task task){
-        Task nTask= this.taskfindById(task.getId());
+    public void deleteTask(Long id){
+        Task nTask= this.taskfindById(id);
         try {
             this.taskRepository.delete(nTask);
         } catch (Exception e) {
@@ -55,5 +57,10 @@ public class TaskService {
                 "Task de id "+nTask.getId()+" não foi deletada"
             );
         }
+    }
+
+    public List<Task> findAllByUserId(Long id){
+        List<Task> lista = this.taskRepository.findByUser_id(id);
+        return lista;
     }
  }

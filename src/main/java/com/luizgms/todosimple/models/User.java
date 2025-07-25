@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.sql.Update;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -41,10 +42,10 @@ public class User {
     @NotEmpty(groups = CreateUser.class) // impede que esse valor seja uma string vazia
     @Size(min = 2, max = 100) // define o tamanho que esse atributo tem no banco de dados
 
-    private String userName;
+    private String username;
 
     @JsonProperty(access = Access.WRITE_ONLY)
-    @Column(name = "passoword", length = 60, nullable = false)
+    @Column(name = "password", length = 60, nullable = false)
     @NotNull(groups = { CreateUser.class, UpdateUser.class }) // impede que esse valor seja nulo
     @NotEmpty(groups = { CreateUser.class, UpdateUser.class }) // impede que esse valor seja uma string vazia
     @Size(min = 8, max = 60)
@@ -54,6 +55,7 @@ public class User {
                                   // usado userID
     private List<Task> tasks = new ArrayList<Task>();
 
+    @JsonIgnore//ignora a lista de tarefas se tentarmos retornar todos os dados de um usuário
     public List<Task> getTasks() {
         return tasks;
     }
@@ -66,12 +68,12 @@ public class User {
     }
 
     public User(Long id,
-            @NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(min = 2, max = 100) String userName,
+            @NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(min = 2, max = 100) String username,
             @NotNull(groups = { CreateUser.class, UpdateUser.class }) @NotEmpty(groups = { CreateUser.class,
                     UpdateUser.class }) @Size(min = 8, max = 60) String password,
             List<Task> tasks) {
         this.id = id;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
         this.tasks = tasks;
     }
@@ -84,12 +86,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -105,7 +107,7 @@ public class User {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         return result;
     }
@@ -124,10 +126,10 @@ public class User {
                 return false;
         } else if (!id.equals(other.id))
             return false;
-        if (userName == null) {
-            if (other.userName != null)
+        if (username == null) {
+            if (other.username != null)
                 return false;
-        } else if (!userName.equals(other.userName))
+        } else if (!username.equals(other.username))
             return false;
         if (password == null) {
             if (other.password != null)

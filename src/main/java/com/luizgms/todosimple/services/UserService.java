@@ -43,13 +43,13 @@ public class UserService {
         return this.userRepository.save(nUser);
     }
 
-    public void deleteUser(User user){
-        User nUser= this.userFindById(user.getId());
+    public void deleteUser(Long id){
+        User nUser= this.userFindById(id);
         try {
             this.userRepository.delete(nUser);
         } catch (Exception e) {
             throw new RuntimeException(
-                "Usuário "+user.getUserName()+" não encontrado"
+                "Usuário "+nUser.getUsername()+" não encontrado"
             );
         }
         
