@@ -6,7 +6,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.luizgms.todosimple.models.Task;
 import com.luizgms.todosimple.repositories.UserRepository;
 import com.luizgms.todosimple.services.TaskService;
-
+import com.luizgms.todosimple.services.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.executable.ValidateOnExecution;
 
@@ -31,13 +31,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 @Validated
 public class TaskController {
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     @Autowired
     private TaskService taskService;
 
-    TaskController(UserRepository userRepository) {
+    TaskController(UserRepository userRepository, UserService userService) {
         this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @GetMapping("/{id}")
@@ -49,7 +52,7 @@ public class TaskController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<List<Task>> findAllByUserId(@PathVariable long id) {
-
+        this.userService.userFindById(id);
         List<Task> tasks = this.taskService.findAllByUserId(id);
         return ResponseEntity.ok().body(tasks);
     }
