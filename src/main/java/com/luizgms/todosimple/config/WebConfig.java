@@ -5,13 +5,15 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-//esssa classe vai se comunicar com o front end
-@Configuration//fala para o servidor iniciar isso junto com a aplicação
+@Configuration
 @EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
-    
-    public void addCoreMappings(CorsRegistry registry){
-        registry.addMapping("/**");//qualquer reuqisição de fora vai vir por essa rota, libera tudo, impede que a API bloqueie requisições
-        
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // Aplica a configuração a todas as rotas da sua API
+                .allowedOrigins("*") // Permite requisições de qualquer origem (ex: seu frontend)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Permite estes métodos HTTP
+                .allowedHeaders("*"); // Permite todos os cabeçalhos na requisição
     }
 }

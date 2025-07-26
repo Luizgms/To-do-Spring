@@ -3,8 +3,6 @@ package com.luizgms.todosimple.models;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.sql.Update;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;

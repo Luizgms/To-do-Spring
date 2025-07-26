@@ -4,7 +4,6 @@ import java.net.URI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +17,6 @@ import com.luizgms.todosimple.models.User.CreateUser;
 import com.luizgms.todosimple.models.User.UpdateUser;
 import com.luizgms.todosimple.services.UserService;
 
-import jakarta.validation.ReportAsSingleViolation;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
